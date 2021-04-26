@@ -1,0 +1,15 @@
+
+<button type="button" class="btn btn-primary my-3" (click)="ocultar(!isOculto)">{{ isOculto === true? 'Mostrar': 'Ocultar'}}</button>
+<div class="card" *ngIf="!isOculto">
+    <div class="card-header">
+        Listado de cursos
+    </div>
+    <ul class="list-group">
+        <li class="list-group-item"
+             *ngFor="let curso of listaCurso; let i = index">                
+
+            {{ curso }}
+        </li>
+    </ul>
+
+</div>
