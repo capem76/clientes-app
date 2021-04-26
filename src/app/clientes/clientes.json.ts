@@ -12,5 +12,5 @@ import { Cliente } from "./cliente";
     { id: 8, nombre: 'Francisca', apellido: 'Mesina', email: 'fmesina@hotmail.com', creatAt: '08-03-2021' },
     { id: 6, nombre: 'Danae', apellido: 'Amigo', email: 'damigo@hotmail.com', creatAt: '09-01-2021' },
     { id: 7, nombre: 'Claudia', apellido: 'Astorga', email: 'castorga@hotmail.com', creatAt: '10-03-2021' },
-    { id: 8, nombre: 'Francisca', apellido: 'Mesina', email: 'fmesina@hotmail.com', creatAt: '08-03-2021' }
+    { id: 8, nombre: 'Francisco', apellido: 'Messina', email: 'fmessina@hotmail.com', creatAt: '08-03-2021' }
   ];
