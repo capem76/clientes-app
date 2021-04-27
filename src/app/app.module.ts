@@ -7,6 +7,9 @@ import { FooterComponent } from './footer/footer.component';
 import { DirectivaComponent } from './directiva/directiva.component';
 import { ClientesComponent } from './clientes/clientes.component';
 import { ClienteService } from './clientes/cliente.service';
+import { AppRoutingModule } from './app-routing.module';
+import { NotfoundComponent } from './notfound/notfound.component';
+
 
 @NgModule({
   declarations: [
@@ -14,10 +17,12 @@ import { ClienteService } from './clientes/cliente.service';
     HeaderComponent,
     FooterComponent,
     DirectivaComponent,
-    ClientesComponent
+    ClientesComponent,
+    NotfoundComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule
   ],
   providers: [ClienteService],
   bootstrap: [AppComponent]
