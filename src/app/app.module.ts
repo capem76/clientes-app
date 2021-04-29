@@ -9,6 +9,7 @@ import { ClientesComponent } from './clientes/clientes.component';
 import { ClienteService } from './clientes/cliente.service';
 import { AppRoutingModule } from './app-routing.module';
 import { NotfoundComponent } from './notfound/notfound.component';
+import { HttpClientModule } from "@angular/common/http";
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { NotfoundComponent } from './notfound/notfound.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [ClienteService],
   bootstrap: [AppComponent]

@@ -3,6 +3,6 @@ export class Cliente {
     id: number;
     nombre: string;
     apellido: string;
-    creatAt: string;
+    createAt: string;
     email: string;
 }
