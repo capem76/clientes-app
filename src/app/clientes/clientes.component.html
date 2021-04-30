@@ -4,27 +4,34 @@
     <div class="card-body text-primary">
       <h5 class="card-title">Listado de Clientes</h5>
       <!-- <div class="table-responsive"> -->
-          <table class="table table-bordered table-striped">
-              <thead>
-                  <tr>
-                      <th>Id</th>
-                      <th>Nombre</th>
-                      <th>Apellido</th>
-                      <th>Fecha Creacion</th>
-                      <th>Email</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  <tr *ngFor="let cliente of clientes">
-                      <td>{{ cliente.id }}</td>
-                      <td>{{ cliente.nombre }}</td>
-                      <td>{{ cliente.apellido }}</td>
-                      <td>{{ cliente.createAt }}</td>
-                      <td>{{ cliente.email }}</td>
-                  </tr>
-              </tbody>
-    
-          </table>
+        <div class="my-2 text-left">
+            <button class="btn rounded btn-primary" 
+                    [routerLink]="['/clientes/form']" 
+                    type="button" >Crear Cliente
+            </button>
+        </div>
+
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Fecha Creacion</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let cliente of clientes">
+                    <td>{{ cliente.id }}</td>
+                    <td>{{ cliente.nombre }}</td>
+                    <td>{{ cliente.apellido }}</td>
+                    <td>{{ cliente.createAt }}</td>
+                    <td>{{ cliente.email }}</td>
+                </tr>
+            </tbody>
+
+        </table>
 
       <!-- </div> -->
 

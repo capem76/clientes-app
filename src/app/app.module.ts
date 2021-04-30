@@ -10,6 +10,8 @@ import { ClienteService } from './clientes/cliente.service';
 import { AppRoutingModule } from './app-routing.module';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { HttpClientModule } from "@angular/common/http";
+import { FormComponent } from './clientes/form.component';
+import { FormsModule } from "@angular/forms";
 
 
 @NgModule({
@@ -19,12 +21,14 @@ import { HttpClientModule } from "@angular/common/http";
     FooterComponent,
     DirectivaComponent,
     ClientesComponent,
-    NotfoundComponent
+    NotfoundComponent,
+    FormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [ClienteService],
   bootstrap: [AppComponent]
