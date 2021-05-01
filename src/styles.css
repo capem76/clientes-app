@@ -1,10 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body{
-    height: 100%;
-    margin: 0;
+html{
+    position: relative;
+    min-height: 100%;
+}
+
+body{
+    margin-bottom: 60px;
 }
 
 main{
     min-height: 89%;
+}
+
+.wrap {
+    padding-bottom: 60px;
 }
