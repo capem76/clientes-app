@@ -12,6 +12,7 @@ import { NotfoundComponent } from './notfound/notfound.component';
 import { HttpClientModule } from "@angular/common/http";
 import { FormComponent } from './clientes/form.component';
 import { FormsModule } from "@angular/forms";
+import { SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { FormsModule } from "@angular/forms";
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    SweetAlert2Module.forRoot()
   ],
   providers: [ClienteService],
   bootstrap: [AppComponent]
