@@ -18,29 +18,28 @@ export class ClienteService {
 
   getClientes():Observable<Cliente[]> {
     
-    /*** 
-     * casteando la respuesta a tipo Cliente 
-
-     return this.http.get<Cliente[]>( `${this.urlEndPoint}/clientes` ).pipe(
-
-       catchError( this.handleError<Cliente[]>('getClientes', []) )
-
-     ); 
-
-     */
-
-    /**
-     * utilizando el operador map de rxjs
-     */
-
-    return this.http.get( `${this.urlEndPoint}/clientes` ).pipe(
+      return this.http.get( `${this.urlEndPoint}/clientes` ).pipe(
       map( response => response as Cliente[] )
     );
 
   }
 
-  create(  cliente: Cliente ): Observable<Cliente>{
+  create(  cliente: Cliente ): Observable<Cliente> {
     return this.http.post<Cliente>( `${this.urlEndPoint}/clientes`, cliente, { headers: this.httpHeaders } );
+  }
+
+  getCliente( id: number ): Observable<Cliente> {
+    return this.http.get<Cliente>( `${this.urlEndPoint}/clientes/${id}` );
+  }
+
+
+  updateCliente( cliente: Cliente ): Observable<Cliente>{
+    return this.http.put<Cliente>( `${this.urlEndPoint}/clientes/${cliente.id}`, cliente, { headers: this.httpHeaders } );
+  }
+
+  delete( id: number ): Observable<Cliente> {
+
+    return this.http.delete<Cliente>( `${this.urlEndPoint}/clientes/${id}`, { headers: this.httpHeaders }  )
   }
 
 
