@@ -11,7 +11,11 @@
             </button>
         </div>
 
-        <table class="table table-bordered table-striped text-secondary">
+        <div *ngIf="clientes?.length === 0" class="alert alert-info">
+            No Hay registros en la base de datos.
+        </div>        
+
+        <table class="table table-bordered table-striped text-secondary" *ngIf="clientes?.length > 0">
             <thead>
                 <tr>
                     <th>Id</th>
