@@ -6,3 +6,7 @@ export class Cliente {
     createAt: string;
     email: string;
 }
+
+export interface Mensaje{
+    mensaje: string;
+}
