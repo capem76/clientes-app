@@ -25,11 +25,11 @@ export class FormComponent implements OnInit {
     
     this.clienteService.create( this.cliente )
       .subscribe(
-        cliente => {    
+        json => {    
           this.router.navigate(['/clientes']);
           Swal.fire({
             title: 'Nuevo Cliente',
-            text: `Cliente ${cliente.nombre}`,
+            text: `${json.mensaje}: ${json.cliente.nombre}`,
             icon: 'success'
             
           });

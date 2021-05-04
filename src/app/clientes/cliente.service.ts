@@ -37,10 +37,9 @@ export class ClienteService {
 
   }
 
-  create(  cliente: Cliente ): Observable<Cliente> {
-    return this.http.post<Cliente>( `${this.urlEndPoint}/clientes`, cliente, { headers: this.httpHeaders } ).pipe(
-      catchError(e => {
-        // this.router.navigate(['/clientes']);
+  create(  cliente: Cliente ): Observable<any> {
+    return this.http.post<any>( `${this.urlEndPoint}/clientes`, cliente, { headers: this.httpHeaders } ).pipe(
+      catchError(e => {        
         console.error(`${e.error.mensaje}`);
         Swal.fire({          
           title: e.error.mensaje,
@@ -53,7 +52,8 @@ export class ClienteService {
   }
 
   getCliente( id: number ): Observable<Cliente> {
-    return this.http.get<Cliente>( `${this.urlEndPoint}/clientes/${id}` ).pipe(
+    return this.http.get( `${this.urlEndPoint}/clientes/${id}` ).pipe(
+      map( ( response: any ) => response.cliente as Cliente ),
       catchError( e => {
         this.router.navigate(['/clientes']);
         console.error(`${e.error.mensaje}`);
@@ -69,7 +69,8 @@ export class ClienteService {
 
 
   updateCliente( cliente: Cliente ): Observable<Cliente>{
-    return this.http.put<Cliente>( `${this.urlEndPoint}/clientes/${cliente.id}`, cliente, { headers: this.httpHeaders } ).pipe(
+    return this.http.put( `${this.urlEndPoint}/clientes/${cliente.id}`, cliente, { headers: this.httpHeaders } ).pipe(
+      map( (response: any ) => response.cliente as Cliente ),
       catchError(e => {
         this.router.navigate(['/clientes']);
         console.error(`${e.error.mensaje}`);
