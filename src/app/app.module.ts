@@ -11,7 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { HttpClientModule } from "@angular/common/http";
 import { FormComponent } from './clientes/form.component';
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
 
 
@@ -30,7 +30,8 @@ import { SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    SweetAlert2Module.forRoot()
+    SweetAlert2Module.forRoot(),
+    ReactiveFormsModule
   ],
   providers: [ClienteService],
   bootstrap: [AppComponent]

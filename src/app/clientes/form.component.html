@@ -3,54 +3,57 @@
     <div class="card-header">{{ titulo }}</div>
     <div class="card-body">
 
-        <form #clienteForm="ngForm"  autocomplete="off" novalidate="">
+        <form [formGroup]="formuCliente"  autocomplete="off" novalidate>
             
             <div class="form-group row">
                 <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
                 <div class="col-sm-6">
-                    <input  name="nombre" 
+                    <input  
+                            formControlName="nombreCliente"
+                            placeholder="Nombre Cliente"
+                            name="nombreCliente" 
                             type="text" 
                             class="form-control" 
-                            [(ngModel)]="cliente.nombre"                             
-                            required 
-                            minlength="4"
-                            #nombre="ngModel"
-                            [class.is-invalid]="nombre.invalid && ( nombre.dirty || nombre.touched )"> 
-                    <ng-container *ngIf="nombre.invalid && ( nombre.dirty || nombre.touched )">
-                        <small  class="form-text text-danger"
-                                *ngIf="nombre.errors.required">
+                            [ngClass]="{
+                                'is-invalid': formuCliente.get('nombreCliente').invalid &&
+                                    ( formuCliente.get('nombreCliente').dirty || formuCliente.get('nombreCliente').touched )
+                                }"
+                            > 
+                        <div  *ngIf="formuCliente.controls['nombreCliente'].errors?.required"
+                               class="invalid-feedback"
+                                >
                             Nombre es Requerido
-                        </small>
-                        <small  class="form-text text-danger"
-                                *ngIf="nombre.errors.minlength">
+                        </div>
+                        <div  class="invalid-feedback"
+                                *ngIf="formuCliente.controls['nombreCliente'].errors?.minlength">
                             Nombre debe tener al menos 4 caracteres
-                        </small>
-                    </ng-container>
+                        </div>
                 </div>
             </div>
 
             <div class="form-group row">
                 <label for="apellido" class="col-form-label col-sm-2">Apellido</label>
                 <div class="col-sm-6">
-                    <input  name="apellido" 
+                    <input  
+                            formControlName="apellidoCliente"
+                            placeholder="Apellido Cliente"                             
+                            name="apellidoCliente"
                             type="text"  
                             class="form-control" 
-                            [(ngModel)]="cliente.apellido" 
-                            required
-                            [class.is-invalid]="apellido.invalid && ( apellido.dirty || apellido.touched )"
-                            minlength="4"
-                            #apellido="ngModel">
-                    <ng-container *ngIf="apellido.invalid && ( apellido.dirty || apellido.touched )">
-                        <small  class="form-text text-danger"
-                                *ngIf="apellido.errors.required">
+                            [ngClass]="{
+                                'is-invalid': formuCliente.get('apellidoCliente').invalid &&
+                                    ( formuCliente.get('apellidoCliente').dirty || formuCliente.get('apellidoCliente').touched )
+                                }"
+                            >
+                        <div    class="invalid-feedback"
+                                *ngIf="formuCliente.controls['apellidoCliente'].errors?.required">
                             apellido es Requerido
-                        </small>
-                        <small  class="form-text text-danger"
-                                *ngIf="apellido.errors.minlength">
+                        </div>
+                        <div    class="invalid-feedback"
+                                *ngIf="formuCliente.controls['apellidoCliente'].errors?.minlength">
                             apellido debe tener al menos 4 caracteres
-                        </small>
+                        </div>
 
-                    </ng-container>
                     
                     
                     
@@ -60,25 +63,25 @@
             <div class="form-group row">
                 <label for="email" class="col-form-label col-sm-2">Email</label>
                 <div class="col-sm-6">
-                    <input  name="email" 
-                            [class.is-invalid]="email.invalid && ( email.dirty || email.touched )"
-                            type="text" 
+                    <input  
+                            name="emailCliente" 
+                            placeholder="Email Cliente"
+                            formControlName="emailCliente"
+                            type="email" 
                             class="form-control" 
-                            [(ngModel)]="cliente.email" 
-                            required 
-                            email 
-                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
-                            #email="ngModel" >
-                        <ng-container *ngIf="email.invalid && ( email.dirty || email.touched )">                            
-                            <small class="form-text text-danger"
-                                 *ngIf="email.errors.required">
+                            [ngClass]="{
+                                'is-invalid': formuCliente.get('emailCliente').invalid &&
+                                    ( formuCliente.get('emailCliente').dirty || formuCliente.get('emailCliente').touched )
+                                }"
+                            >
+                            <div class="invalid-feedback"
+                                 *ngIf="formuCliente.controls['emailCliente'].errors?.required">
                                 email es Requerido
-                            </small>
-                            <small class="form-text text-danger" 
-                                 *ngIf="email.errors.email">
+                            </div>
+                            <div class="invalid-feedback" 
+                                 *ngIf="formuCliente.controls['emailCliente'].errors?.pattern">
                                 email debe tener un formato valido
-                            </small>                            
-                        </ng-container>
+                            </div>                            
                         
                         
                    
@@ -89,15 +92,15 @@
                 <div class="col-sm-6">
                     <button type="submit"
                             class="btn btn-primary" 
-                            role="button"
-                            (click)="create( clienteForm )"                             
+                            role="button"                            
                             *ngIf="!cliente.id else elseBlock"
-                            [disabled]="!clienteForm.form.valid">Crear</button>
+                            [disabled]="formuCliente.invalid"
+                            (click)="create()">Crear</button>
                     <ng-template #elseBlock>
                         <button class="btn btn-primary"
-                                role="button" 
-                                (click)="updateCliente()"
-                                [disabled]="!clienteForm.form.valid">Actualizar</button>
+                                role="button"                                 
+                                [disabled]="formuCliente.invalid"
+                                (click)="updateCliente()">Actualizar</button>
                     </ng-template>
                 </div>
             </div>
