@@ -1,9 +1,9 @@
 
-<div class="card bg-dark text-white mt-2">
+<div class="card bg-light text-dark mt-2">
     <div class="card-header">{{ titulo }}</div>
     <div class="card-body">
 
-        <form #clienteForm="ngForm">
+        <form #clienteForm="ngForm"  autocomplete="off" novalidate="">
             
             <div class="form-group row">
                 <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
@@ -11,19 +11,21 @@
                     <input  name="nombre" 
                             type="text" 
                             class="form-control" 
-                            [(ngModel)]="cliente.nombre" 
+                            [(ngModel)]="cliente.nombre"                             
                             required 
                             minlength="4"
-                            #nombre="ngModel"> 
-                    <div class="alert alert-danger" 
-                         *ngIf="nombre.invalid && ( nombre.dirty || nombre.touched )">
-                        <div *ngIf="nombre.errors.required">
+                            #nombre="ngModel"
+                            [class.is-invalid]="nombre.invalid && ( nombre.dirty || nombre.touched )"> 
+                    <ng-container *ngIf="nombre.invalid && ( nombre.dirty || nombre.touched )">
+                        <small  class="form-text text-danger"
+                                *ngIf="nombre.errors.required">
                             Nombre es Requerido
-                        </div>
-                        <div *ngIf="nombre.errors.minlength">
+                        </small>
+                        <small  class="form-text text-danger"
+                                *ngIf="nombre.errors.minlength">
                             Nombre debe tener al menos 4 caracteres
-                        </div>
-                    </div>
+                        </small>
+                    </ng-container>
                 </div>
             </div>
 
@@ -35,41 +37,60 @@
                             class="form-control" 
                             [(ngModel)]="cliente.apellido" 
                             required
+                            [class.is-invalid]="apellido.invalid && ( apellido.dirty || apellido.touched )"
                             minlength="4"
                             #apellido="ngModel">
-                    <div class="alert alert-danger" 
-                            *ngIf="apellido.invalid && ( apellido.dirty || apellido.touched )">
-                        <div *ngIf="apellido.errors.required">
+                    <ng-container *ngIf="apellido.invalid && ( apellido.dirty || apellido.touched )">
+                        <small  class="form-text text-danger"
+                                *ngIf="apellido.errors.required">
                             apellido es Requerido
-                        </div>
-                        <div *ngIf="apellido.errors.minlength">
+                        </small>
+                        <small  class="form-text text-danger"
+                                *ngIf="apellido.errors.minlength">
                             apellido debe tener al menos 4 caracteres
-                        </div>
-                    </div>
+                        </small>
+
+                    </ng-container>
+                    
+                    
+                    
                 </div>
             </div>
 
             <div class="form-group row">
                 <label for="email" class="col-form-label col-sm-2">Email</label>
                 <div class="col-sm-6">
-                    <input name="email" type="text" class="form-control" [(ngModel)]="cliente.email" required email #email="ngModel" >
-                    <div class="alert alert-danger" 
-                                *ngIf="email.invalid && ( email.dirty || email.touched )">
-                        <div *ngIf="email.errors.required">
-                            email es Requerido
-                        </div>
-                        <div *ngIf="email.errors.email">
-                            email debe tener un formato valido
-                        </div>
-                    </div>
+                    <input  name="email" 
+                            [class.is-invalid]="email.invalid && ( email.dirty || email.touched )"
+                            type="text" 
+                            class="form-control" 
+                            [(ngModel)]="cliente.email" 
+                            required 
+                            email 
+                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                            #email="ngModel" >
+                        <ng-container *ngIf="email.invalid && ( email.dirty || email.touched )">                            
+                            <small class="form-text text-danger"
+                                 *ngIf="email.errors.required">
+                                email es Requerido
+                            </small>
+                            <small class="form-text text-danger" 
+                                 *ngIf="email.errors.email">
+                                email debe tener un formato valido
+                            </small>                            
+                        </ng-container>
+                        
+                        
+                   
                 </div>
             </div>
 
             <div class="form-group row">
                 <div class="col-sm-6">
-                    <button class="btn btn-primary" 
-                            role="button" 
-                            (click)="create()" 
+                    <button type="submit"
+                            class="btn btn-primary" 
+                            role="button"
+                            (click)="create( clienteForm )"                             
                             *ngIf="!cliente.id else elseBlock"
                             [disabled]="!clienteForm.form.valid">Crear</button>
                     <ng-template #elseBlock>

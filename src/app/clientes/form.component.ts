@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Cliente } from './cliente';
 import { ClienteService } from './cliente.service';
 import Swal from "sweetalert2";
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-form',
@@ -21,7 +22,11 @@ export class FormComponent implements OnInit {
     this.cargarCliente();
   }
 
-  create(): void{
+  create( clienteForm: NgForm ): void{
+
+       
+    console.log(`valor apellido: ${clienteForm.controls.apellido.value} \n 
+      nombre: ${clienteForm.controls.nombre.value} \n email: ${clienteForm.controls.email.value}` );    
     
     this.clienteService.create( this.cliente )
       .subscribe(
@@ -35,6 +40,7 @@ export class FormComponent implements OnInit {
           });
         }
       );
+    
         
   }
 
@@ -59,5 +65,13 @@ export class FormComponent implements OnInit {
         });
       })
   }
+
+  onSubmit( clienteForm: NgForm ): void{
+    console.log(clienteForm);
+    
+
+  }
+
+  
 
 }
