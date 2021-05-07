@@ -143,8 +143,10 @@ export class FormComponent implements OnInit, OnDestroy {
 
     this.suscriptionObjs.objSubs1 =  this.nombreClientCtrl.valueChanges
       .subscribe( (nombreVal: string) => this.cliente.nombre = nombreVal.trim() );
+
     this.suscriptionObjs.objSubs2 = this.apellidoClienteCtrl.valueChanges
       .subscribe( (apellidoVal: string) => this.cliente.apellido = apellidoVal.trim() );
+      
     this.suscriptionObjs.objSubs3 = this.emailClienteCtrl.valueChanges
       .subscribe( (emailvalue: string)  => this.cliente.email = emailvalue.trim() );
 
