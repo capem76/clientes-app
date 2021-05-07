@@ -1,3 +1,11 @@
+<div class="invalid-feedback d-block" *ngIf="errores?.length > 0">
+    <ul  >
+        <li *ngFor="let err of errores ">
+            {{ err }}
+        </li>
+    </ul>
+
+</div>
 
 <div class="card bg-light text-dark mt-2">
     <div class="card-header">{{ titulo }}</div>

@@ -39,7 +39,12 @@ export class ClienteService {
 
   create(  cliente: Cliente ): Observable<any> {
     return this.http.post<any>( `${this.urlEndPoint}/clientes`, cliente, { headers: this.httpHeaders } ).pipe(
-      catchError(e => {        
+      catchError(e => {      
+        
+        if( e.status === 400){
+          return throwError( e );
+        }
+        
         console.error(`${e.error.mensaje}`);
         Swal.fire({          
           title: e.error.mensaje,
@@ -72,7 +77,12 @@ export class ClienteService {
     return this.http.put( `${this.urlEndPoint}/clientes/${cliente.id}`, cliente, { headers: this.httpHeaders } ).pipe(
       map( (response: any ) => response.cliente as Cliente ),
       catchError(e => {
+        if( e.status === 400){
+          return throwError( e );
+        }      
+         
         this.router.navigate(['/clientes']);
+        
         console.error(`${e.error.mensaje}`);
         Swal.fire({          
           title: e.error.mensaje,

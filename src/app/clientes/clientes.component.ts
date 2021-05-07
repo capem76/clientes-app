@@ -34,9 +34,6 @@ export class ClientesComponent implements OnInit {
 
   deleteCliente( cliente: Cliente ): void {
 
-    console.log(cliente);
-    
-
     this.swalWithBootstrapButtons.fire({
       title: 'Estas seguro?',
       text: `Sesguro de eliminar al cliente ${cliente.nombre} ${cliente.apellido}`,

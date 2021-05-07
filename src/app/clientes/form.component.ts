@@ -20,14 +20,22 @@ export class FormComponent implements OnInit, OnDestroy {
   private nombreClientCtrl: FormControl;  
   private apellidoClienteCtrl: FormControl;
   private emailClienteCtrl: FormControl;
-
-
+  private _errores: string[];
+  
   constructor( private clienteService: ClienteService,
                private router: Router,
                private activedRoute: ActivatedRoute ) { 
     
     this.formuCliente = this.creaFormGroupControl();
 
+  }
+
+  public get errores(): string[] {
+    return this._errores;
+  }
+
+  public set errores(value: string[]) {
+    this._errores = value;
   }
   
 
@@ -54,6 +62,11 @@ export class FormComponent implements OnInit, OnDestroy {
             icon: 'success'
             
           });
+        },
+        err => {
+          console.error( `codigo del error desde el backend:  ${err.error.errors}` );
+          console.error( err.error.errors );
+          this.errores = err.error.errors as string[];
         }
       );
         
@@ -70,7 +83,7 @@ export class FormComponent implements OnInit, OnDestroy {
           this.emailClienteCtrl.setValue(cliente.email);
         });        
       }
-    })
+    });
   }
 
   updateCliente(): void {
@@ -83,7 +96,13 @@ export class FormComponent implements OnInit, OnDestroy {
           icon: 'success'
           
         });
-      })
+      },
+      err => {
+        console.error( `codigo del error desde el backend:  ${err.error.errors}` );
+        console.error( err.error.errors );
+        this.errores = err.error.errors as string[];
+      }
+    );
   }
 
   onSubmit(): void{
@@ -123,11 +142,11 @@ export class FormComponent implements OnInit, OnDestroy {
     this.emailClienteCtrl = this.formuCliente.get('emailCliente') as FormControl;
 
     this.suscriptionObjs.objSubs1 =  this.nombreClientCtrl.valueChanges
-      .subscribe( nombreVal => this.cliente.nombre = nombreVal );
+      .subscribe( (nombreVal: string) => this.cliente.nombre = nombreVal.trim() );
     this.suscriptionObjs.objSubs2 = this.apellidoClienteCtrl.valueChanges
-      .subscribe( apellidoVal => this.cliente.apellido = apellidoVal);
+      .subscribe( (apellidoVal: string) => this.cliente.apellido = apellidoVal.trim() );
     this.suscriptionObjs.objSubs3 = this.emailClienteCtrl.valueChanges
-      .subscribe( emailvalue  => this.cliente.email = emailvalue );
+      .subscribe( (emailvalue: string)  => this.cliente.email = emailvalue.trim() );
 
    this.subscriptionArray.push( this.suscriptionObjs.objSubs1 );
    this.subscriptionArray.push( this.suscriptionObjs.objSubs2 );
