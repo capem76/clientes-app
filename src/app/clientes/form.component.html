@@ -107,7 +107,7 @@
                     <ng-template #elseBlock>
                         <button class="btn btn-primary"
                                 role="button"                                 
-                                [disabled]="formuCliente.invalid"
+                                [disabled]="formuCliente.invalid || formuCliente.pristine"
                                 (click)="updateCliente()">Actualizar</button>
                     </ng-template>
                 </div>
