@@ -33,7 +33,7 @@ export class ClientesComponent implements OnInit {
           console.log(cliente.nombre);
         })
       })
-    );
+    ).subscribe( clientes =>  this.clientes = clientes );
   }
 
   deleteCliente( cliente: Cliente ): void {
