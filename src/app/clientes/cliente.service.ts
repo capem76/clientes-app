@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
+import { formatDate, DatePipe } from "@angular/common";
 import { Cliente } from './cliente';
 import { Observable, of, throwError } from "rxjs";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { catchError, map } from "rxjs/operators";
+import { catchError, map, tap } from "rxjs/operators";
 import Swal from 'sweetalert2';
 
 import { Router } from "@angular/router";
@@ -22,17 +23,44 @@ export class ClienteService {
   getClientes():Observable<Cliente[]> {
     
       return this.http.get( `${this.urlEndPoint}/clientes` ).pipe(
-      map( response => response as Cliente[] ),
-      catchError( e => {
-        this.router.navigate(['/clientes']);
-        console.error(e.error.mensaje);
-        Swal.fire({          
-          title: e.error.mensaje,
-          text: e.error.error,
-          icon: 'error'
-        });
-        return throwError(e);
-      })
+
+        tap( response => {
+          let clientes = response as Cliente[];
+          console.log("ClienteService: tap 1");
+          clientes.forEach( cliente => {
+            let datePipe = new DatePipe('es');            
+            console.log(`nombre cliente: ${cliente.nombre} creado el: ${datePipe.transform(cliente.createAt, 'fullDate')}`);            
+          });
+        }),
+        map( response =>{   
+          let clientes = response as Cliente[];  
+          return clientes.map( cliente => {
+            cliente.nombre = cliente.nombre.toUpperCase();
+            // let datePipe = new DatePipe('es');
+            // cliente.createAt = datePipe.transform( cliente.createAt, 'EEEE dd, MMMM yyyy' );
+            // cliente.createAt = formatDate(cliente.createAt, 'dd-MM-yyyy', 'en-US');
+            return cliente;
+          });
+  
+         }),
+         tap( response => {          
+          console.log("ClienteService: tap 2");
+                    
+          response.forEach( cliente => {
+              let datePipe = new DatePipe('es');            
+              console.log(`nombre cliente: ${cliente.nombre} creado el: ${datePipe.transform(cliente.createAt, 'fullDate')}`);            
+          });
+        }),
+        catchError( e => {
+          this.router.navigate(['/clientes']);
+          console.error(e.error.mensaje);
+          Swal.fire({          
+            title: e.error.mensaje,
+            text: e.error.error,
+            icon: 'error'
+          });
+          return throwError(e);
+        })
     );
 
   }
