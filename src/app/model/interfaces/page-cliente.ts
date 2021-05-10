@@ -1,5 +1,11 @@
 import { Cliente } from './cliente';
 
+/**
+ * Interface de objeto Pageable retornado por el bakcend en la busqueda clientes.
+ * Contiene los objetos de tipo Cliente dentro del atributo content y atributos manipular
+ * la paginacion de los datos.
+ */
+
 export interface PageCliente {
     content:          Cliente[];
     pageable:         Pageable;

@@ -6,13 +6,17 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { DirectivaComponent } from './directiva/directiva.component';
 import { ClientesComponent } from './clientes/clientes.component';
+import { FormComponent } from './clientes/form.component';
+import { PaginatorComponent } from './paginator/paginator.component';
+import { NotfoundComponent } from './notfound/notfound.component';
+
 import { ClienteService } from './clientes/cliente.service';
 import { AppRoutingModule } from './app-routing.module';
-import { NotfoundComponent } from './notfound/notfound.component';
 import { HttpClientModule } from "@angular/common/http";
-import { FormComponent } from './clientes/form.component';
+
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
+
 
 
 @NgModule({
@@ -23,7 +27,8 @@ import { SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
     DirectivaComponent,
     ClientesComponent,
     NotfoundComponent,
-    FormComponent
+    FormComponent,
+    PaginatorComponent
   ],
   imports: [
     BrowserModule,

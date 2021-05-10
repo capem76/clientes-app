@@ -4,6 +4,7 @@ import { ClienteService } from './cliente.service';
 import Swal from "sweetalert2";
 import { tap } from "rxjs/operators";
 import { ActivatedRoute } from "@angular/router";
+import { PageCliente } from '../model/interfaces/page-cliente';
 
 
 @Component({
@@ -14,6 +15,7 @@ import { ActivatedRoute } from "@angular/router";
 export class ClientesComponent implements OnInit {
 
   clientes: Cliente[];
+  pagesClientes: PageCliente;
 
   private swalWithBootstrapButtons = Swal.mixin({
     customClass: {
@@ -33,7 +35,6 @@ export class ClientesComponent implements OnInit {
   }
 
   deleteCliente( cliente: Cliente ): void {
-
     this.swalWithBootstrapButtons.fire({
       title: 'Estas seguro?',
       text: `Sesguro de eliminar al cliente ${cliente.nombre} ${cliente.apellido}`,
@@ -74,7 +75,10 @@ export class ClientesComponent implements OnInit {
             console.log(cliente.nombre);
           })
         })
-      ).subscribe(clientes => this.clientes = clientes.content);
+      ).subscribe(pagesClientes => {
+        this.clientes = pagesClientes.content;
+        this.pagesClientes = pagesClientes;
+      });
     })
 
   }
