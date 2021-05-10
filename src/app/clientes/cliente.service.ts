@@ -7,6 +7,7 @@ import { catchError, map, tap } from "rxjs/operators";
 import Swal from 'sweetalert2';
 
 import { Router } from "@angular/router";
+import { PageCliente } from '../model/interfaces/page-cliente';
 
 
 
@@ -20,33 +21,31 @@ export class ClienteService {
 
   constructor( private http: HttpClient, private router: Router ) { }
 
-  getClientes():Observable<Cliente[]> {
+  getClientes( page: number):Observable<PageCliente> {
     
-      return this.http.get( `${this.urlEndPoint}/clientes` ).pipe(
+      return this.http.get( `${this.urlEndPoint}/clientes/page/${page}` ).pipe(
 
-        tap( response => {
-          let clientes = response as Cliente[];
+        tap( (pageCliente: PageCliente) => {
           console.log("ClienteService: tap 1");
-          clientes.forEach( cliente => {
+          pageCliente.content.forEach( cliente => {
             let datePipe = new DatePipe('es');            
             console.log(`nombre cliente: ${cliente.nombre} creado el: ${datePipe.transform(cliente.createAt, 'fullDate')}`);            
           });
         }),
-        map( response =>{   
-          let clientes = response as Cliente[];  
-          return clientes.map( cliente => {
+        map( (pageCliente: PageCliente) =>{   
+          pageCliente.content.map( cliente => {
             cliente.nombre = cliente.nombre.toUpperCase();
             // let datePipe = new DatePipe('es');
             // cliente.createAt = datePipe.transform( cliente.createAt, 'EEEE dd, MMMM yyyy' );
             // cliente.createAt = formatDate(cliente.createAt, 'dd-MM-yyyy', 'en-US');
             return cliente;
           });
-  
+          return pageCliente;  
          }),
-         tap( response => {          
+         tap( pageCliente => {          
           console.log("ClienteService: tap 2");
                     
-          response.forEach( cliente => {
+           pageCliente.content.forEach( cliente => {
               let datePipe = new DatePipe('es');            
               console.log(`nombre cliente: ${cliente.nombre} creado el: ${datePipe.transform(cliente.createAt, 'fullDate')}`);            
           });
