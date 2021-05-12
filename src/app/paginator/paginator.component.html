@@ -1,4 +1,4 @@
-<ul *ngIf="paginas?.length> 0" class="pagination">
+<ul *ngIf="paginas?.length> 0" class="pagination" >
     <li class="page-item">
         <a class="page-link"
             [routerLink]="['/clientes/page', pagesClientes.pageable.pageNumber-1]" 
@@ -6,6 +6,9 @@
            &laquo; 
         </a>
 
+    </li>
+    <li class="page-item" *ngIf="!pagesClientes.first">
+        <a class="page-link" [routerLink]="['/clientes/page', 0]" >Primera</a>
     </li>
     <div *ngFor="let pagina of paginas" >
         <li class="page-item active" *ngIf="pagesClientes.number == pagina-1" >
@@ -21,6 +24,9 @@
             </a> 
         </li>
     </div>
+    <li class="page-item" *ngIf="!pagesClientes.last">
+        <a class="page-link" [routerLink]="['/clientes/page', pagesClientes.totalPages-1]" >Ultima</a>
+    </li>
     <li class="page-item">
         <a class="page-link"
             [routerLink]="['/clientes/page', pagesClientes.pageable.pageNumber+1]"
