@@ -20,6 +20,7 @@ export class FormComponent implements OnInit, OnDestroy {
   private nombreClientCtrl: FormControl;  
   private apellidoClienteCtrl: FormControl;
   private emailClienteCtrl: FormControl;
+  private createAtClienteCtrl: FormControl;
   private _errores: string[];
   
   constructor( private clienteService: ClienteService,
@@ -53,8 +54,8 @@ export class FormComponent implements OnInit, OnDestroy {
   create( ): void{
     
     this.clienteService.create( this.cliente )
-      .subscribe(
-        json => {    
+      .subscribe(                
+        json => {
           this.router.navigate(['/clientes']);
           Swal.fire({
             title: 'Nuevo Cliente',
@@ -117,6 +118,7 @@ export class FormComponent implements OnInit, OnDestroy {
   private creaFormGroupControl(): FormGroup{
 
     let newFormGroup: FormGroup = new FormGroup({
+
       nombreCliente: new FormControl('',[
         Validators.required,
         Validators.minLength(4)
@@ -128,7 +130,8 @@ export class FormComponent implements OnInit, OnDestroy {
       emailCliente: new FormControl('',[        
         Validators.required,
         Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')
-      ])
+      ]),
+      createAtCliente: new FormControl('',[])
     });
 
     return newFormGroup;
@@ -140,6 +143,8 @@ export class FormComponent implements OnInit, OnDestroy {
     this.nombreClientCtrl = this.formuCliente.get('nombreCliente') as FormControl;
     this.apellidoClienteCtrl = this.formuCliente.get('apellidoCliente') as FormControl;
     this.emailClienteCtrl = this.formuCliente.get('emailCliente') as FormControl;
+    this.createAtClienteCtrl = this.formuCliente.get('createAtCliente') as FormControl;
+    
 
     this.suscriptionObjs.objSubs1 =  this.nombreClientCtrl.valueChanges
       .subscribe( (nombreVal: string) => this.cliente.nombre = nombreVal.trim() );
@@ -149,10 +154,14 @@ export class FormComponent implements OnInit, OnDestroy {
       
     this.suscriptionObjs.objSubs3 = this.emailClienteCtrl.valueChanges
       .subscribe( (emailvalue: string)  => this.cliente.email = emailvalue.trim() );
+    
+    this.suscriptionObjs.objSubs4 = this.createAtClienteCtrl.valueChanges
+      .subscribe( (createAtValue: string) => this.cliente.createAt = createAtValue );
 
    this.subscriptionArray.push( this.suscriptionObjs.objSubs1 );
    this.subscriptionArray.push( this.suscriptionObjs.objSubs2 );
    this.subscriptionArray.push( this.suscriptionObjs.objSubs3 );
+   this.subscriptionArray.push( this.suscriptionObjs.objSubs4 );
 
   }
 
@@ -164,6 +173,7 @@ export class SuscriptionObjs {
   objSubs1: Subscription;
   objSubs2: Subscription;
   objSubs3: Subscription;
+  objSubs4: Subscription;
 
 }
 
