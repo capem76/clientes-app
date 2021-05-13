@@ -5,6 +5,9 @@ import { ClienteService } from './cliente.service';
 import Swal from "sweetalert2";
 import {  FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
+import { Moment } from 'moment';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-form',
@@ -52,6 +55,7 @@ export class FormComponent implements OnInit, OnDestroy {
   }
 
   create( ): void{
+    console.log(this.cliente);
     
     this.clienteService.create( this.cliente )
       .subscribe(                
@@ -82,12 +86,15 @@ export class FormComponent implements OnInit, OnDestroy {
           this.nombreClientCtrl.setValue(cliente.nombre);
           this.apellidoClienteCtrl.setValue(cliente.apellido);
           this.emailClienteCtrl.setValue(cliente.email);
+          this.createAtClienteCtrl.setValue(cliente.createAt);
         });        
       }
     });
   }
 
   updateCliente(): void {
+    console.log(this.cliente);
+    
     this.clienteService.updateCliente( this.cliente )
       .subscribe( cliente => {
         this.router.navigate(['/clientes']);
@@ -156,7 +163,7 @@ export class FormComponent implements OnInit, OnDestroy {
       .subscribe( (emailvalue: string)  => this.cliente.email = emailvalue.trim() );
     
     this.suscriptionObjs.objSubs4 = this.createAtClienteCtrl.valueChanges
-      .subscribe( (createAtValue: string) => this.cliente.createAt = createAtValue );
+      .subscribe( (createAtValue: string) => this.cliente.createAt =   createAtValue );
 
    this.subscriptionArray.push( this.suscriptionObjs.objSubs1 );
    this.subscriptionArray.push( this.suscriptionObjs.objSubs2 );

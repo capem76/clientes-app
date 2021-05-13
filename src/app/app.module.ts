@@ -16,6 +16,16 @@ import { HttpClientModule } from "@angular/common/http";
 
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from "@angular/material-moment-adapter";
+import { MAT_DATE_LOCALE } from "@angular/material/core";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import {MatInputModule} from '@angular/material/input';
+
+
+
 
 
 
@@ -29,6 +39,8 @@ import { SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
     NotfoundComponent,
     FormComponent,
     PaginatorComponent
+    
+
   ],
   imports: [
     BrowserModule,
@@ -36,9 +48,18 @@ import { SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
     HttpClientModule,
     FormsModule,
     SweetAlert2Module.forRoot(),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NoopAnimationsModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatMomentDateModule
   ],
-  providers: [ClienteService, {provide: LOCALE_ID, useValue: 'es' }],
+  providers: [
+    ClienteService,
+    {provide: LOCALE_ID, useValue: 'es' }
+    
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
