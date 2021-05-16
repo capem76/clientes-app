@@ -13,7 +13,7 @@
               <li class="list-group-item">{{ cliente.createAt | date: "fullDate" }}</li>
             </ul>
 
-            <div class="input-group">
+            <div class="input-group mb-3">
                 <div class="custom-file">
                   <input accept="image/jpg, image/png, image/jpeg" 
                         (change)="seleccionarFoto($event.target.files)" 
@@ -31,6 +31,20 @@
                           id="inputGroupFileAddon04">Subir</button>
                 </div>
               </div>
+
+              <div  *ngIf=" progreso > 0 "
+                    class="progress" style="height: 40px;">
+                <div class="progress-bar bg-info" 
+                    role="progressbar" 
+                    [ngStyle]="{width: progreso +'%'}" 
+                    attr.aria-valuenow="{{ progreso }}" 
+                    aria-valuemin="0"
+                    aria-valuemax="100">
+                    {{ progreso }}%
+                </div>
+              </div>
+              
+
           </div>
           <div class="col-sm">
             <img  *ngIf="cliente?.foto" 

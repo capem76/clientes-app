@@ -3,6 +3,9 @@ import { Cliente } from '../cliente';
 import { ClienteService } from '../cliente.service';
 import { ActivatedRoute } from '@angular/router';
 import Swal2 from "sweetalert2";
+import { HttpEventType } from '@angular/common/http';
+import { ClienteResponse } from 'src/app/model/interfaces/cliente-response';
+import { timeInterval } from 'rxjs/operators';
 
 @Component({
   selector: 'detalle-cliente',
@@ -15,6 +18,7 @@ export class DetalleComponent implements OnInit, OnChanges {
   titulo:string = "Detalle del cliente";
   private _fotoSeleccionada: File;
   private _uriEndPointFoto: string;
+  progreso: number = 0;
   
   
 
@@ -57,6 +61,7 @@ export class DetalleComponent implements OnInit, OnChanges {
 
   seleccionarFoto(event: File[]){
     this.fotoSeleccionada = event[0];    
+    this.progreso = 0;
     this.validacionFicheros();    
 
   }
@@ -64,13 +69,20 @@ export class DetalleComponent implements OnInit, OnChanges {
   subirFoto(){
     
     this.clienteService.subirFoto(this.fotoSeleccionada, this.cliente.id)
-      .subscribe( cliente => {
-        this.cliente = cliente;                
-        Swal2.fire({          
-          title: "Subir Imagen",
-          text: `La imagen ${this.cliente.foto} ha sido almacenada correctamente`,
-          icon: 'success'
-        });
+      .subscribe( event => {        
+          if ( event.type === HttpEventType.UploadProgress) {
+            this.progreso = Math.round( (event.loaded/event.total) *100 );
+          }else if( event.type === HttpEventType.Response ){
+            let response: ClienteResponse = event.body as ClienteResponse;
+            this.cliente = response.cliente;
+            Swal2.fire({          
+              title: "La imagen ha sido almacenada correctamente",
+              text: response.mensaje,
+              icon: 'success'
+            });
+  
+          }
+        // this.cliente = cliente;                
       });
 
   }
