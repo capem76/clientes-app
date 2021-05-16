@@ -18,10 +18,17 @@ import { ClienteResponse } from '../model/interfaces/cliente-response';
 })
 export class ClienteService {
 
-  private urlEndPoint: string = 'http://localhost:8080/api/clientes';
+  private _urlEndPoint: string = 'http://localhost:8080/api/clientes';   
   httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   constructor( private http: HttpClient, private router: Router ) { }
+
+  public get urlEndPoint(): string {
+    return this._urlEndPoint;
+  }
+  public set urlEndPoint(value: string) {
+    this._urlEndPoint = value;
+  }
 
   getClientes( page: number):Observable<PageCliente> {
     
@@ -146,7 +153,7 @@ export class ClienteService {
     formData.append("archivo", archivo);
     formData.append("id", id.toString() );
     
-    return this.http.post(`${this.urlEndPoint}/upload/`, formData).pipe(
+    return this.http.post(`${this.urlEndPoint}/upload`, formData).pipe(
       map( (response: ClienteResponse) => response.cliente ),
       catchError(e => {
         this.router.navigate((['/clientes']));
