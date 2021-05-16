@@ -84,11 +84,11 @@ export class DetalleComponent implements OnInit, OnChanges {
 
   private validacionFicheros(){        
     var arhivoPermitidos: string[] = ["image/jpeg", "image/png"];
-    var fileName = this.fotoSeleccionada.name;
-    var fileSize = this.fotoSeleccionada.size;
+    var fileName = this.fotoSeleccionada?.name;
+    var fileSize = this.fotoSeleccionada?.size;
 
     if ((fileSize > 1024e4)) {
-      console.log("tamaño fichero: " + (fileSize/1024) + "MB" );      
+      console.error("tamaño fichero: " + (fileSize/1024) + "MB" );      
       Swal2.fire({          
         title: "Fichero muy grande",
         text: "tamaño fichero sobrepasa los 10MB permitidos" ,
@@ -97,6 +97,16 @@ export class DetalleComponent implements OnInit, OnChanges {
       this.fotoSeleccionada = null;
       
       
+    }
+
+    if ( this.fotoSeleccionada?.type.indexOf('image') < 0 ) {
+      console.error("error fichero no es de tipo imagen");
+      this.fotoSeleccionada = null;
+      Swal2.fire({          
+        title: "Fichero no valido!",
+        text: "Solo se permiten formatos de imagen" ,
+        icon: 'error'
+      });
     }
 
 
