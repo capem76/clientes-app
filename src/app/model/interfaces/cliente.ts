@@ -5,6 +5,7 @@ export interface Cliente {
     apellido: string;
     createAt: string;
     email: string;
+    foto: string;
 }
 
 export interface Mensaje{

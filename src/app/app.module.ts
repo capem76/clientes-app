@@ -23,6 +23,7 @@ import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from "@angular/m
 import { MAT_DATE_LOCALE } from "@angular/material/core";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import {MatInputModule} from '@angular/material/input';
+import { DetalleComponent } from './clientes/detalle/detalle.component';
 
 
 
@@ -38,7 +39,8 @@ import {MatInputModule} from '@angular/material/input';
     ClientesComponent,
     NotfoundComponent,
     FormComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    DetalleComponent
     
 
   ],

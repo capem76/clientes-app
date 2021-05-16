@@ -5,6 +5,7 @@ import { FormComponent } from './clientes/form.component';
 import { DirectivaComponent } from './directiva/directiva.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import  "@angular/common/locales/global/es";
+import { DetalleComponent } from './clientes/detalle/detalle.component';
 
 const routes: Routes = [
   { path: '',  pathMatch: 'full', redirectTo: 'clientes' },  
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'clientes/page/:page', component: ClientesComponent },
   { path: 'clientes/form', component: FormComponent },
   { path: 'clientes/form/:id', component: FormComponent },
+  { path: 'clientes/ver/:id', component: DetalleComponent },
   { path: '404', component: NotfoundComponent  },
   { path: '**', redirectTo: '/404' }
 ];
