@@ -1,11 +1,11 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Cliente } from '../cliente';
 import { ClienteService } from '../cliente.service';
-import { ActivatedRoute } from '@angular/router';
 import Swal2 from "sweetalert2";
 import { HttpEventType } from '@angular/common/http';
 import { ClienteResponse } from 'src/app/model/interfaces/cliente-response';
-import { timeInterval } from 'rxjs/operators';
+import { ModalService } from './modal.service';
+
 
 @Component({
   selector: 'detalle-cliente',
@@ -14,7 +14,7 @@ import { timeInterval } from 'rxjs/operators';
 })
 export class DetalleComponent implements OnInit, OnChanges {
 
-  cliente: Cliente;
+  @Input() cliente: Cliente;
   titulo:string = "Detalle del cliente";
   private _fotoSeleccionada: File;
   private _uriEndPointFoto: string;
@@ -23,29 +23,27 @@ export class DetalleComponent implements OnInit, OnChanges {
   
 
   
-  constructor( private clienteService: ClienteService, 
-    private activatedRoute: ActivatedRoute  ) {     
+  constructor( private clienteService: ClienteService,     
+    private modalService: ModalService  ) {    
+      
+      
       
   }
 
-  public get uriEndPointFoto(): string {
+  public get uriEndPointFoto(): string {      
+
+    if(this.cliente.foto)
+      this._uriEndPointFoto = `${this.clienteService.urlEndPoint}/uploads/img/${this.cliente.foto}`;
+    else
+      this._uriEndPointFoto = "";      
+
     return this._uriEndPointFoto;
   }
-  public set uriEndPointFoto(value: string) {
-    this._uriEndPointFoto = value;
-  }
+
+    
   
   ngOnInit(): void {
-    this.activatedRoute.paramMap.subscribe( params => {
-      let id: number = +params.get('id');
-      if ( id ) {
-        this.clienteService.getCliente(id).subscribe( cliente => {
-          this.cliente = cliente;
-          this.uriEndPointFoto = `${this.clienteService.urlEndPoint}/uploads/img/`;
-        });
-      }
-
-    });
+    
   }
 
   ngOnChanges(changes: SimpleChanges): void {    
@@ -121,6 +119,17 @@ export class DetalleComponent implements OnInit, OnChanges {
       });
     }
 
+
+  }
+
+  cerrarModal(){
+    this.modalService.cerrarModal();
+    this.fotoSeleccionada = null;
+    this.progreso = 0;
+  }
+
+  isModalActive(): boolean{
+    return this.modalService.modal;
 
   }
 

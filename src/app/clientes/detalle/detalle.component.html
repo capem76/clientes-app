@@ -1,62 +1,79 @@
-
-<div class="card bg-light text-dark mt-2">
-    <div class="card-header">{{ titulo }}</div>
-    <div class="card-body"> 
-      <div class="container">
-        <div class="row">
-          <div class="col-sm">
-
-            <ul class="list-group text-dark mb-3" *ngIf="cliente">
-              <li class="list-group-item active">{{ cliente.nombre }}</li>
-              <li class="list-group-item">{{ cliente.apellido }}</li>
-              <li class="list-group-item">{{ cliente.email }}</li>
-              <li class="list-group-item">{{ cliente.createAt | date: "fullDate" }}</li>
-            </ul>
-
-            <div class="input-group mb-3">
-                <div class="custom-file">
-                  <input accept="image/jpg, image/png, image/jpeg" 
-                        (change)="seleccionarFoto($event.target.files)" 
-                        type="file"
-                        class="custom-file-input" 
-                        id="inputGroupFile04" 
-                        aria-describedby="inputGroupFileAddon04">
-                  <label class="custom-file-label" for="inputGroupFile04">{{ textoLabel() }}</label>
-                </div>
-                <div class="input-group-append">
-                  <button [disabled]="!fotoSeleccionada"
-                          (click)="subirFoto()" 
-                          class="btn btn-outline-secondary" 
-                          type="button" 
-                          id="inputGroupFileAddon04">Subir</button>
-                </div>
-              </div>
-
-              <div  *ngIf=" progreso > 0 "
-                    class="progress" style="height: 40px;">
-                <div class="progress-bar bg-info" 
-                    role="progressbar" 
-                    [ngStyle]="{width: progreso +'%'}" 
-                    attr.aria-valuenow="{{ progreso }}" 
-                    aria-valuemin="0"
-                    aria-valuemax="100">
-                    {{ progreso }}%
-                </div>
-              </div>
-              
-
-          </div>
-          <div class="col-sm">
-            <img  *ngIf="cliente?.foto" 
-                  [src]="uriEndPointFoto + cliente.foto" 
-                  alt="{{cliente.foto}}" 
-                  class="img-thumbnail rounded">
-
-          </div>
+<div class="abrir-modal animacion fadeIn" *ngIf="isModalActive()">
+  <div class="modal" tabindex="-1" style="display: block;">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ titulo }}</h5>
+          <button type="button" (click)="cerrarModal()" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-      </div>       
+        <div class="modal-body">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm">
+    
+                <ul class="list-group text-dark mb-3" *ngIf="cliente">
+                  <li class="list-group-item active">{{ cliente.nombre }}</li>
+                  <li class="list-group-item">{{ cliente.apellido }}</li>
+                  <li class="list-group-item">{{ cliente.email }}</li>
+                  <li class="list-group-item">{{ cliente.createAt | date: "fullDate" }}</li>
+                </ul>
+    
+                <div class="input-group mb-3">
+                    <div class="custom-file">
+                      <input accept="image/jpg, image/png, image/jpeg" 
+                            (change)="seleccionarFoto($event.target.files)" 
+                            type="file"
+                            class="custom-file-input" 
+                            id="inputGroupFile04" 
+                            aria-describedby="inputGroupFileAddon04">
+                      <label class="custom-file-label" for="inputGroupFile04">{{ textoLabel() }}</label>
+                    </div>
+                    <div class="input-group-append">
+                      <button [disabled]="!fotoSeleccionada"
+                              (click)="subirFoto()" 
+                              class="btn btn-outline-secondary" 
+                              type="button" 
+                              id="inputGroupFileAddon04">Subir</button>
+                    </div>
+                  </div>
+    
+                  <div  *ngIf=" progreso > 0 "
+                        class="progress" style="height: 40px;">
+                    <div class="progress-bar bg-info" 
+                        role="progressbar" 
+                        [ngStyle]="{width: progreso +'%'}" 
+                        attr.aria-valuenow="{{ progreso }}" 
+                        aria-valuemin="0"
+                        aria-valuemax="100">
+                        {{ progreso }}%
+                    </div>
+                  </div>
+                  
+    
+              </div>
+              <div class="col-sm">
+                <img  *ngIf="cliente?.foto" 
+                      [src]="uriEndPointFoto" 
+                      alt="{{cliente.foto}}" 
+                      class="img-thumbnail rounded">
+    
+              </div>
+            </div>
+          </div>  
+        </div>
+        <div class="modal-footer">
+          <button type="button" (click)="cerrarModal()" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
     </div>
+  </div>
+
 </div>
+
+
+
 
 
 

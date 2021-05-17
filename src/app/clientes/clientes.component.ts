@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Cliente } from './cliente';
 import { ClienteService } from './cliente.service';
 import Swal from "sweetalert2";
 import { tap } from "rxjs/operators";
 import { ActivatedRoute } from "@angular/router";
 import { PageCliente } from '../model/interfaces/page-cliente';
+import { ModalService } from './detalle/modal.service';
 
 
 @Component({
@@ -16,6 +17,7 @@ export class ClientesComponent implements OnInit {
 
   clientes: Cliente[];
   pagesClientes: PageCliente;
+  clienteSeleccionado: Cliente;
 
   private swalWithBootstrapButtons = Swal.mixin({
     customClass: {
@@ -27,7 +29,8 @@ export class ClientesComponent implements OnInit {
   
 
   constructor( private clienteService: ClienteService,
-      private activatedRoute: ActivatedRoute ) { }
+      private activatedRoute: ActivatedRoute,
+      private modalService: ModalService  ) { }
 
   ngOnInit(): void {
     this.obtenerClientesInicio();
@@ -83,7 +86,14 @@ export class ClientesComponent implements OnInit {
 
   }
 
+  abrirModal( cliente: Cliente ){
+    console.info(cliente);
+    this.clienteSeleccionado = cliente;
+    this.modalService.abrirModal();
+    
+  }
 
+  
 
 
 }
