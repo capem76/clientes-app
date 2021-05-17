@@ -30,12 +30,19 @@
             <tbody>
                 <tr *ngFor="let cliente of clientes">
                     <td>
-                        <button type="button" 
-                                name="button" 
-                                (click)="abrirModal( cliente )"                                
-                                class="btn btn-success btn-sm">
-                         {{ cliente.id }}
-                        </button>
+                        <img (click)="abrirModal( cliente )"  
+                            *ngIf="cliente?.foto" 
+                            [src]="uriFotoCliente.concat('/').concat(cliente.foto)" 
+                            alt="{{cliente.foto}}" 
+                            class="img-thumbnail rounded image_mini"
+                            >
+                        <img (click)="abrirModal( cliente )"  
+                            *ngIf="!cliente?.foto" 
+                            [src]="uriFotoNoCliente" 
+                            alt="sin foto" 
+                            class="img-thumbnail rounded image_mini"
+                        >
+                       
                     </td>
                     <td>{{ cliente.nombre }}</td>
                     <td>{{ cliente.apellido | uppercase }}</td>

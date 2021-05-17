@@ -20,14 +20,22 @@ export class ClienteService {
 
   private _urlEndPoint: string = 'http://localhost:8080/api/clientes';   
   httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-
+  private _uriNoFoto: string = "http://localhost:8080/images/no-user-3.png";
+  
   constructor( private http: HttpClient, private router: Router ) { }
-
+  
   public get urlEndPoint(): string {
     return this._urlEndPoint;
   }
   public set urlEndPoint(value: string) {
     this._urlEndPoint = value;
+  }
+  
+  public get uriNoFoto(): string {
+    return this._uriNoFoto;
+  }
+  public set uriNoFoto(value: string) {
+    this._uriNoFoto = value;
   }
 
   getClientes( page: number):Observable<PageCliente> {
