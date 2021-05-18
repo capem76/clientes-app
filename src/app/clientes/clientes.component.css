@@ -1,4 +1,5 @@
 .image_mini{
-    width: 60px;
+    width: 50px;
+    max-height: 70px;
     cursor: pointer;
 }

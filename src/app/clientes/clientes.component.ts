@@ -42,6 +42,16 @@ export class ClientesComponent implements OnInit {
 
   ngOnInit(): void {
     this.obtenerClientesInicio();
+
+    this.modalService.notificarUpload.subscribe( (cliente:Cliente) =>{
+      this.clientes = this.clientes.map( clienteOriginal => {
+        var i : number = i++;        
+        if( cliente.id == clienteOriginal.id ){
+          clienteOriginal.foto = cliente.foto;
+        }
+        return clienteOriginal;
+      })
+    });
    
   }
 
