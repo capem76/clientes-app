@@ -10,6 +10,7 @@ import { Router } from "@angular/router";
 import { PageCliente } from '../model/interfaces/page-cliente';
 import { Cliente } from '../model/interfaces/cliente';
 import { ClienteResponse } from '../model/interfaces/cliente-response';
+import { Region } from './region';
 
 
 
@@ -36,6 +37,12 @@ export class ClienteService {
   }
   public set uriNoFoto(value: string) {
     this._uriNoFoto = value;
+  }
+
+  getRegiones(): Observable<Region[]>{
+    
+    return this.http.get<Region[]>(`${this.urlEndPoint}/regiones`);
+
   }
 
   getClientes( page: number):Observable<PageCliente> {

@@ -6,6 +6,7 @@ import { tap } from "rxjs/operators";
 import { ActivatedRoute } from "@angular/router";
 import { PageCliente } from '../model/interfaces/page-cliente';
 import { ModalService } from './detalle/modal.service';
+import { Region } from './region';
 
 
 @Component({
@@ -20,6 +21,7 @@ export class ClientesComponent implements OnInit {
   clienteSeleccionado: Cliente;
   uriFotoCliente: string;
   uriFotoNoCliente: string;
+  regiones: Region[];
 
 
   private swalWithBootstrapButtons = Swal.mixin({
@@ -102,6 +104,10 @@ export class ClientesComponent implements OnInit {
       });
     })
 
+  }
+
+  private obtenerRegionesInicio(){
+    
   }
 
   abrirModal( cliente: Cliente ){

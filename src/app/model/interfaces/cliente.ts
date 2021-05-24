@@ -1,3 +1,5 @@
+import { Region } from "src/app/clientes/region";
+
 export interface Cliente {
     
     id: number;
@@ -6,8 +8,7 @@ export interface Cliente {
     createAt: string;
     email: string;
     foto: string;
+    region: Region;
 }
 
-export interface Mensaje{
-    mensaje: string;
-}
+

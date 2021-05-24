@@ -8,6 +8,10 @@ import { Observable, Subscription } from 'rxjs';
 import { Moment } from 'moment';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import * as moment from 'moment';
+import { Region } from './region';
+
+
+
 
 @Component({
   selector: 'app-form',
@@ -17,6 +21,7 @@ export class FormComponent implements OnInit, OnDestroy {
 
   titulo: string = "Formulario crear Cliente";
   cliente: Cliente = new Cliente(); 
+  regiones: Region[] = [];
   private suscriptionObjs: SuscriptionObjs = new SuscriptionObjs();  
   private subscriptionArray: Subscription[] = [];
   formuCliente: FormGroup;
@@ -24,6 +29,7 @@ export class FormComponent implements OnInit, OnDestroy {
   private apellidoClienteCtrl: FormControl;
   private emailClienteCtrl: FormControl;
   private createAtClienteCtrl: FormControl;
+  private regionClienteCtrl: FormControl;
   private _errores: string[];
   
   constructor( private clienteService: ClienteService,
@@ -31,6 +37,7 @@ export class FormComponent implements OnInit, OnDestroy {
                private activedRoute: ActivatedRoute ) { 
     
     this.formuCliente = this.creaFormGroupControl();
+    
 
   }
 
@@ -45,8 +52,12 @@ export class FormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
+    this.inicializarControles();    
     this.cargarCliente();
-    this.inicializarControles();
+    this.clienteService.getRegiones().subscribe( regiones => {
+      this.regiones = regiones;
+      console.debug(regiones);
+     });       
     
   }
 
@@ -55,7 +66,7 @@ export class FormComponent implements OnInit, OnDestroy {
   }
 
   create( ): void{
-    console.log(this.cliente);
+    console.debug(this.cliente);
     
     this.clienteService.create( this.cliente )
       .subscribe(                
@@ -87,13 +98,18 @@ export class FormComponent implements OnInit, OnDestroy {
           this.apellidoClienteCtrl.setValue(cliente.apellido);
           this.emailClienteCtrl.setValue(cliente.email);
           this.createAtClienteCtrl.setValue(cliente.createAt);
+          this.regionClienteCtrl.setValue(cliente.region);
         });        
+      }else {        
+        this.regionClienteCtrl.setValue(undefined);
       }
     });
   }
 
+  
+
   updateCliente(): void {
-    console.log(this.cliente);
+    console.debug(this.cliente);
     
     this.clienteService.updateCliente( this.cliente )
       .subscribe( cliente => {
@@ -138,7 +154,10 @@ export class FormComponent implements OnInit, OnDestroy {
         Validators.required,
         Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')
       ]),
-      createAtCliente: new FormControl('',[])
+      createAtCliente: new FormControl('',[]),
+      regionCliente: new FormControl( '', [
+        Validators.required
+      ])
     });
 
     return newFormGroup;
@@ -151,8 +170,9 @@ export class FormComponent implements OnInit, OnDestroy {
     this.apellidoClienteCtrl = this.formuCliente.get('apellidoCliente') as FormControl;
     this.emailClienteCtrl = this.formuCliente.get('emailCliente') as FormControl;
     this.createAtClienteCtrl = this.formuCliente.get('createAtCliente') as FormControl;
-    
+    this.regionClienteCtrl = this.formuCliente.get('regionCliente') as FormControl;  
 
+        
     this.suscriptionObjs.objSubs1 =  this.nombreClientCtrl.valueChanges
       .subscribe( (nombreVal: string) => this.cliente.nombre = nombreVal.trim() );
 
@@ -160,17 +180,33 @@ export class FormComponent implements OnInit, OnDestroy {
       .subscribe( (apellidoVal: string) => this.cliente.apellido = apellidoVal.trim() );
       
     this.suscriptionObjs.objSubs3 = this.emailClienteCtrl.valueChanges
-      .subscribe( (emailvalue: string)  => this.cliente.email = emailvalue.trim() );
+      .subscribe( (emailvalue: string)  => {        
+        this.cliente.email = emailvalue.trim();
+      } );
     
     this.suscriptionObjs.objSubs4 = this.createAtClienteCtrl.valueChanges
-      .subscribe( (createAtValue: string) => this.cliente.createAt =   createAtValue );
+      .subscribe( (createAtValue: string) => this.cliente.createAt = createAtValue );
+  
+    this.suscriptionObjs.objSubs5 = this.regionClienteCtrl.valueChanges
+    .subscribe( (regionValue :  Region) => {      
+      this.cliente.region =   regionValue;      
+     });
 
    this.subscriptionArray.push( this.suscriptionObjs.objSubs1 );
    this.subscriptionArray.push( this.suscriptionObjs.objSubs2 );
    this.subscriptionArray.push( this.suscriptionObjs.objSubs3 );
    this.subscriptionArray.push( this.suscriptionObjs.objSubs4 );
+   this.subscriptionArray.push( this.suscriptionObjs.objSubs5 );
 
   }
+
+
+  compareFn(c1: Region, c2: Region): boolean {
+    if( c1 === undefined && c2 === undefined ){
+      return true;
+    }
+    return c1 && c2 ? c1.id === c2.id : false;
+}
 
   
 
@@ -181,6 +217,7 @@ export class SuscriptionObjs {
   objSubs2: Subscription;
   objSubs3: Subscription;
   objSubs4: Subscription;
+  objSubs5: Subscription;
 
 }
 

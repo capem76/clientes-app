@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { PageCliente } from '../model/interfaces/page-cliente';
-import { Mensaje } from '../model/interfaces/cliente';
+
 
 @Component({
   selector: 'paginator-nav',
