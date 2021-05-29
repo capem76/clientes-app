@@ -24,6 +24,7 @@ import { MAT_DATE_LOCALE } from "@angular/material/core";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import {MatInputModule} from '@angular/material/input';
 import { DetalleComponent } from './clientes/detalle/detalle.component';
+import { LoginComponent } from './usuarios/login.component';
 
 
 
@@ -40,7 +41,8 @@ import { DetalleComponent } from './clientes/detalle/detalle.component';
     NotfoundComponent,
     FormComponent,
     PaginatorComponent,
-    DetalleComponent
+    DetalleComponent,
+    LoginComponent
     
 
   ],
