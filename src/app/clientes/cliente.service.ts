@@ -24,7 +24,8 @@ export class ClienteService {
   private _uriNoFoto: string = "http://localhost:8080/images/no-user-3.png";
   
   constructor( private http: HttpClient, private router: Router ) { }
-  
+
+    
   public get urlEndPoint(): string {
     return this._urlEndPoint;
   }
@@ -39,9 +40,22 @@ export class ClienteService {
     this._uriNoFoto = value;
   }
 
+  private isNotAutorizado(e): boolean {
+    if ( e.status == 401 || e.status == 403 ){
+      this.router.navigate(['/login']);
+      return true;
+    }else
+      false;
+  }
+
   getRegiones(): Observable<Region[]>{
     
-    return this.http.get<Region[]>(`${this.urlEndPoint}/regiones`);
+    return this.http.get<Region[]>(`${this.urlEndPoint}/regiones`).pipe(
+      catchError( e => {
+        this.isNotAutorizado( e );
+        return throwError(e);
+      })
+    );
 
   }
 
@@ -91,6 +105,9 @@ export class ClienteService {
   create(  cliente: Cliente ): Observable<any> {
     return this.http.post<any>( `${this.urlEndPoint}`, cliente, { headers: this.httpHeaders } ).pipe(
       catchError(e => {      
+        if( this.isNotAutorizado(e) ) {
+          return throwError( e );
+        }
         
         if( e.status === 400){
           return throwError( e );
@@ -111,6 +128,10 @@ export class ClienteService {
     return this.http.get( `${this.urlEndPoint}/${id}` ).pipe(
       map( ( response: any ) => response.cliente as Cliente ),
       catchError( e => {
+        if( this.isNotAutorizado(e) ) {
+          return throwError( e );
+        }
+
         this.router.navigate(['/clientes']);
         console.error(`${e.error.mensaje}`);
         Swal.fire({
@@ -128,6 +149,10 @@ export class ClienteService {
     return this.http.put( `${this.urlEndPoint}/${cliente.id}`, cliente, { headers: this.httpHeaders } ).pipe(
       map( (response: any ) => response.cliente as Cliente ),
       catchError(e => {
+        if( this.isNotAutorizado(e) ) {
+          return throwError( e );
+        }
+
         if( e.status === 400){
           return throwError( e );
         }      
@@ -149,6 +174,10 @@ export class ClienteService {
 
     return this.http.delete<any>( `${this.urlEndPoint}/${id}`, { headers: this.httpHeaders }  ).pipe(      
       catchError(e => {
+        if( this.isNotAutorizado(e) ) {
+          return throwError( e );
+        }
+          
         this.router.navigate((['/clientes']));
         console.error(e.error.mensaje);
         Swal.fire({          
@@ -171,7 +200,14 @@ export class ClienteService {
       reportProgress: true
     });
     
-    return this.http.request(req)
+    return this.http.request(req).pipe(
+      catchError( e => {
+        if( this.isNotAutorizado(e) ) {
+          return throwError( e );
+        }
+      })
+      
+    );
 
     
   }
