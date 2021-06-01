@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { formatDate, DatePipe } from "@angular/common";
+import { DatePipe } from "@angular/common";
 // import { Cliente } from './cliente';
 import { Observable, of, throwError } from "rxjs";
 import { HttpClient, HttpEvent, HttpHeaders, HttpRequest } from "@angular/common/http";
@@ -9,7 +9,6 @@ import Swal from 'sweetalert2';
 import { Router } from "@angular/router";
 import { PageCliente } from '../model/interfaces/page-cliente';
 import { Cliente } from '../model/interfaces/cliente';
-import { ClienteResponse } from '../model/interfaces/cliente-response';
 import { Region } from './region';
 
 

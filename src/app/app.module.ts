@@ -42,8 +42,7 @@ import { LoginComponent } from './usuarios/login.component';
     FormComponent,
     PaginatorComponent,
     DetalleComponent,
-    LoginComponent
-    
+    LoginComponent    
 
   ],
   imports: [

@@ -9,6 +9,7 @@ import { Moment } from 'moment';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import * as moment from 'moment';
 import { Region } from './region';
+import { SuscriptionObjs } from '../model/classes/suscription-objs';
 
 
 
@@ -212,13 +213,6 @@ export class FormComponent implements OnInit, OnDestroy {
 
 }
 
-export class SuscriptionObjs {
-  objSubs1: Subscription;
-  objSubs2: Subscription;
-  objSubs3: Subscription;
-  objSubs4: Subscription;
-  objSubs5: Subscription;
 
-}
 
 
