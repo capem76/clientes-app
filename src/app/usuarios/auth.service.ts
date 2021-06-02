@@ -91,6 +91,27 @@ export class AuthService {
 
   }
 
+  isAuthenticated(): boolean{
+    let payLoad = this.obtenerDatoToken( this.token );
+    
+    if ( payLoad != null && payLoad.user_name && payLoad.user_name.length > 0 ){
+     return true; 
+    }
+    
+    return false;
+
+  }
+
+  logoout(): void{
+    this._token = null;
+    this._usuario = null;
+    // sessionStorage.clear();
+    sessionStorage.removeItem('usuario');
+    sessionStorage.removeItem('token');
+    
+
+  }
+
   
 
 }

@@ -32,7 +32,7 @@
                     <td>
                         <img (click)="abrirModal( cliente )"  
                             *ngIf="cliente?.foto" 
-                            [src]="uriFotoCliente.concat('/').concat(cliente.foto)" 
+                            [src]="uriFotoCliente.concat(cliente.foto)" 
                             alt="{{cliente.foto}}" 
                             class="img-thumbnail rounded image_mini"
                             >

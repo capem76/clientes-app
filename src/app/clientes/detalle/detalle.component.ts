@@ -73,6 +73,7 @@ export class DetalleComponent implements OnInit, OnChanges {
           }else if( event.type === HttpEventType.Response ){
             let response: ClienteResponse = event.body as ClienteResponse;
             this.cliente = response.cliente;
+            console.debug(this.cliente);
             this.modalService.notificarUpload.emit(this.cliente);
             Swal2.fire({          
               title: "La imagen ha sido almacenada correctamente",

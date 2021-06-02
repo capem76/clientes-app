@@ -18,13 +18,15 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatDatepickerModule } from "@angular/material/datepicker";
-import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from "@angular/material-moment-adapter";
-import { MAT_DATE_LOCALE } from "@angular/material/core";
-import { MatFormFieldModule } from "@angular/material/form-field";
-import {MatInputModule} from '@angular/material/input';
 import { DetalleComponent } from './clientes/detalle/detalle.component';
 import { LoginComponent } from './usuarios/login.component';
+
+// angular material
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatMomentDateModule } from "@angular/material-moment-adapter";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import {MatInputModule} from '@angular/material/input';
+import { MatTooltipModule } from "@angular/material/tooltip";
 
 
 
@@ -56,7 +58,8 @@ import { LoginComponent } from './usuarios/login.component';
     MatDatepickerModule,
     MatFormFieldModule,
     MatInputModule,
-    MatMomentDateModule
+    MatMomentDateModule,
+    MatTooltipModule
   ],
   providers: [
     ClienteService,
