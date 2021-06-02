@@ -11,6 +11,7 @@ import { PageCliente } from '../model/interfaces/page-cliente';
 import { Cliente } from '../model/interfaces/cliente';
 import { Region } from './region';
 import { AuthService } from '../usuarios/auth.service';
+import Swal2 from 'sweetalert2';
 
 
 
@@ -51,11 +52,22 @@ export class ClienteService {
   }
 
   private isNotAutorizado(e: HttpErrorResponse): boolean {
-    if ( e.status == 401 || e.status == 403 ){
+    if ( e.status == 401 ){
       this.router.navigate(['/login']);
       return true;
-    }else
-      false;
+    }
+
+    if ( e.status == 403 ){
+      Swal2.fire({
+        title: 'No Autorizado',
+        text: `Hola ${this.authService.usuario.username}, no tiene permisos para esa accion!`,
+        icon: 'warning'
+      });
+      this.router.navigate(['/clientes']);
+      return true;
+    }
+
+    return false;
   }
 
   getRegiones(): Observable<Region[]>{
