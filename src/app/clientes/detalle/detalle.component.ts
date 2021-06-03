@@ -5,6 +5,7 @@ import Swal2 from "sweetalert2";
 import { HttpEventType } from '@angular/common/http';
 import { ClienteResponse } from 'src/app/model/interfaces/cliente-response';
 import { ModalService } from './modal.service';
+import { AuthService } from '../../usuarios/auth.service';
 
 
 @Component({
@@ -23,8 +24,10 @@ export class DetalleComponent implements OnInit, OnChanges {
   
 
   
-  constructor( private clienteService: ClienteService,     
-    private modalService: ModalService  ) {    
+  constructor( 
+    private clienteService: ClienteService,     
+    private modalService: ModalService,
+    private authService: AuthService  ) {    
       
       
       
@@ -133,6 +136,12 @@ export class DetalleComponent implements OnInit, OnChanges {
   isModalActive(): boolean{
     return this.modalService.modal;
 
+  }
+  
+
+  isHasRole( role: string ): boolean{
+
+    return this.authService.isHasRole(role);
   }
 
 }

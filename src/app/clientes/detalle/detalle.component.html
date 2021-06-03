@@ -21,7 +21,7 @@
                   <li class="list-group-item">{{ cliente.region.nombre }}</li>
                 </ul>
     
-                <div class="input-group mb-3">
+                <div *ngIf="isHasRole('ROLE_ADMIN')" class="input-group mb-3">
                     <div class="custom-file">
                       <input accept="image/jpg, image/png, image/jpeg" 
                             (change)="seleccionarFoto($event.target.files)" 
@@ -31,7 +31,7 @@
                             aria-describedby="inputGroupFileAddon04">
                       <label class="custom-file-label" for="inputGroupFile04">{{ textoLabel() }}</label>
                     </div>
-                    <div class="input-group-append">
+                    <div xclass="input-group-append">
                       <button [disabled]="!fotoSeleccionada"
                               (click)="subirFoto()" 
                               class="btn btn-outline-secondary" 

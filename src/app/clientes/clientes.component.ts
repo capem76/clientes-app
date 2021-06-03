@@ -7,6 +7,7 @@ import { ActivatedRoute } from "@angular/router";
 import { PageCliente } from '../model/interfaces/page-cliente';
 import { ModalService } from './detalle/modal.service';
 import { Region } from './region';
+import { AuthService } from '../usuarios/auth.service';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class ClientesComponent implements OnInit {
   regiones: Region[];
 
 
+
   private swalWithBootstrapButtons = Swal.mixin({
     customClass: {
       confirmButton: 'btn btn-success',
@@ -33,9 +35,11 @@ export class ClientesComponent implements OnInit {
   })
   
 
-  constructor( private clienteService: ClienteService,
+  constructor( 
+      private clienteService: ClienteService,
       private activatedRoute: ActivatedRoute,
-      private modalService: ModalService  ) { 
+      private modalService: ModalService,
+      private authService: AuthService  ) { 
 
         this.uriFotoCliente = `${this.clienteService.urlEndPoint}/uploads/img/`;
         this.uriFotoNoCliente = this.clienteService.uriNoFoto;
@@ -115,6 +119,10 @@ export class ClientesComponent implements OnInit {
     this.clienteSeleccionado = cliente;
     this.modalService.abrirModal();
     
+  }
+
+  isHasRole(role: string): boolean {
+    return this.authService.isHasRole(role);
   }
 
   
