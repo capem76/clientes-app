@@ -28,6 +28,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import {MatInputModule} from '@angular/material/input';
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { TokenInterceptor } from './usuarios/interceptors/token.interceptor';
+import { AuthInterceptor } from './usuarios/interceptors/auth.interceptor';
 
 
 
@@ -64,7 +65,8 @@ import { TokenInterceptor } from './usuarios/interceptors/token.interceptor';
   providers: [
     ClienteService,
     {provide: LOCALE_ID, useValue: 'es' },
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
     
   ],
   bootstrap: [AppComponent]
