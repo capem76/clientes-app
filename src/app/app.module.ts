@@ -12,7 +12,7 @@ import { NotfoundComponent } from './notfound/notfound.component';
 
 import { ClienteService } from './clientes/cliente.service';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
@@ -27,7 +27,7 @@ import { MatMomentDateModule } from "@angular/material-moment-adapter";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import {MatInputModule} from '@angular/material/input';
 import { MatTooltipModule } from "@angular/material/tooltip";
-
+import { TokenInterceptor } from './usuarios/interceptors/token.interceptor';
 
 
 
@@ -63,7 +63,8 @@ import { MatTooltipModule } from "@angular/material/tooltip";
   ],
   providers: [
     ClienteService,
-    {provide: LOCALE_ID, useValue: 'es' }
+    {provide: LOCALE_ID, useValue: 'es' },
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
     
   ],
   bootstrap: [AppComponent]
