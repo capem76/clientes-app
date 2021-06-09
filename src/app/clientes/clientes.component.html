@@ -18,7 +18,7 @@
         <table class="table table-bordered table-striped text-secondary" *ngIf="clientes?.length > 0">
             <thead>
                 <tr>
-                    <th *ngIf="isHasRole('ROLE_USER')">#</th>
+                    <th>#</th>
                     <th>Nombre</th>
                     <th>Apellido</th>
                     <th>Fecha Creacion</th>
@@ -29,7 +29,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let cliente of clientes">
-                    <td *ngIf="isHasRole('ROLE_USER')">
+                    <td>
                         <img (click)="abrirModal( cliente )"  
                             *ngIf="cliente?.foto" 
                             [src]="uriFotoCliente.concat(cliente.foto)" 

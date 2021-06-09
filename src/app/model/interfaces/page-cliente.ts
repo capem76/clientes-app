@@ -1,4 +1,4 @@
-import { Cliente } from './cliente';
+import { Cliente } from '../../clientes/cliente';
 
 /**
  * Interface de objeto Pageable retornado por el bakcend en la busqueda clientes.

@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 
 import { Router } from "@angular/router";
 import { PageCliente } from '../model/interfaces/page-cliente';
-import { Cliente } from '../model/interfaces/cliente';
+import { Cliente } from './cliente';
 import { Region } from './region';
 
 

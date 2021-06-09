@@ -29,6 +29,7 @@ import {MatInputModule} from '@angular/material/input';
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { TokenInterceptor } from './usuarios/interceptors/token.interceptor';
 import { AuthInterceptor } from './usuarios/interceptors/auth.interceptor';
+import { DetalleFacturaComponent } from './facturas/detalle-factura.component';
 
 
 
@@ -45,7 +46,8 @@ import { AuthInterceptor } from './usuarios/interceptors/auth.interceptor';
     FormComponent,
     PaginatorComponent,
     DetalleComponent,
-    LoginComponent    
+    LoginComponent,
+    DetalleFacturaComponent    
 
   ],
   imports: [
