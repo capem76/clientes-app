@@ -15,14 +15,15 @@
             No Hay registros en la base de datos.
         </div>        
 
-        <table class="table table-bordered table-striped text-secondary" *ngIf="clientes?.length > 0">
+        <table class="table table-bordered table-striped" *ngIf="clientes?.length > 0">
             <thead>
                 <tr>
                     <th>#</th>
                     <th>Nombre</th>
                     <th>Apellido</th>
-                    <th>Fecha Creacion</th>
+                    <th>Fecha Creacion</th>                    
                     <th>Email</th>
+                    <th>Crear Factura</th>
                     <th *ngIf="isHasRole('ROLE_ADMIN')">Editar</th>
                     <th *ngIf="isHasRole('ROLE_ADMIN')">Eliminar</th>
                 </tr>
@@ -46,8 +47,14 @@
                     </td>
                     <td>{{ cliente.nombre }}</td>
                     <td>{{ cliente.apellido | uppercase }}</td>
-                    <td>{{ cliente.createAt |date: "EEEE dd, MM YYYY" }}</td>
+                    <td>{{ cliente.createAt |date: "EEEE dd, MM YYYY" }}</td>                    
                     <td>{{ cliente.email }}</td>
+                    <td>
+                        <button type="button" [routerLink]="['/facturas/form', cliente.id]" class="btn btn-primary btn-sm">
+                            Crear Factrura
+                            <i class="fas fa-plus-circle"></i>
+                        </button>
+                    </td>
                     <td *ngIf="isHasRole('ROLE_ADMIN')">
                         <button type="button" 
                                 name="button" 

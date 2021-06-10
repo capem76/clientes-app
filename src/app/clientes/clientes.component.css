@@ -3,3 +3,8 @@
     max-height: 70px;
     cursor: pointer;
 }
+
+.fuente-peque-azul{
+    color:steelblue;
+    font-size: small;
+}
