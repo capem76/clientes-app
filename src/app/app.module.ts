@@ -20,6 +20,10 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { DetalleComponent } from './clientes/detalle/detalle.component';
 import { LoginComponent } from './usuarios/login.component';
+import { TokenInterceptor } from './usuarios/interceptors/token.interceptor';
+import { AuthInterceptor } from './usuarios/interceptors/auth.interceptor';
+import { DetalleFacturaComponent } from './facturas/detalle-factura.component';
+import { FacturasComponent } from './facturas/facturas.component';
 
 // angular material
 import { MatDatepickerModule } from "@angular/material/datepicker";
@@ -27,10 +31,7 @@ import { MatMomentDateModule } from "@angular/material-moment-adapter";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import {MatInputModule} from '@angular/material/input';
 import { MatTooltipModule } from "@angular/material/tooltip";
-import { TokenInterceptor } from './usuarios/interceptors/token.interceptor';
-import { AuthInterceptor } from './usuarios/interceptors/auth.interceptor';
-import { DetalleFacturaComponent } from './facturas/detalle-factura.component';
-import { FacturasComponent } from './facturas/facturas.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 
 
@@ -64,7 +65,8 @@ import { FacturasComponent } from './facturas/facturas.component';
     MatFormFieldModule,
     MatInputModule,
     MatMomentDateModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatAutocompleteModule
   ],
   providers: [
     ClienteService,
