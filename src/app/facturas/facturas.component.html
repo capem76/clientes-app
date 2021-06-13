@@ -40,7 +40,9 @@
                                matInput
                                [formControl]="autoCompleteControl"
                                [matAutocomplete]="auto">
-                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="mostrarNombre">
+                        <mat-autocomplete #auto="matAutocomplete"
+                                          [displayWith]="mostrarNombre"
+                                          (optionSelected)="seleccionarProducto($event)">
                           <mat-option *ngFor="let producto of productosFiltrados | async" [value]="producto">
                             {{producto.nombre}}
                           </mat-option>
@@ -48,6 +50,33 @@
                       </mat-form-field>
                 </div>
             </div>
+
+            <table class="table table-striped table-hover table-sm">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of factura.items">
+                        <td>{{ item.producto.nombre }}</td>
+                        <td>{{ item.producto.precio }}</td>
+                        <td>
+                            <input  type="number" value="{{ item.cantidad }}" min="0"
+                                    class="form-control col-sm-4" (change)="actualizarCantidad( item.producto.id, $event )">
+                        </td>
+                        <td>{{ item.calcularImporte() }}</td>
+                        <td>
+                            <button type="button" class="btn btn-danger btn-sm" (click)="eliminarItemFactura(item.producto.id)">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
             <div class="form-group row">
                 <div class="col-sm-6">

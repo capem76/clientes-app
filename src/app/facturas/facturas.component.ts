@@ -7,6 +7,8 @@ import { Observable } from 'rxjs';
 import { startWith, map, flatMap, mergeMap } from 'rxjs/operators';
 import { FacturaService } from './services/factura.service';
 import { Producto } from './models/producto';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { ItemFactura } from './models/item-factura';
 
 @Component({
   selector: 'app-facturas',
@@ -61,6 +63,75 @@ export class FacturasComponent implements OnInit {
 
     return producto? producto.nombre: undefined;
 
+
+  }
+
+  seleccionarProducto( event: MatAutocompleteSelectedEvent ): void{
+    let producto = event.option.value as Producto;
+    console.debug(producto);
+
+    if( this.isExisteItem( producto.id ) ){
+      this.incrementaCantidad( producto.id );
+    }else {
+
+      let nuevoItem = new ItemFactura();
+      nuevoItem.producto = producto;
+      this.factura.items.push( nuevoItem );
+  
+    }
+    
+    this.autoCompleteControl.setValue('');
+    event.option.focus();
+    event.option.deselect();
+
+
+  }
+
+  actualizarCantidad( idProducto: number , event: any ):void {
+    let cantidad: number = event.target.value as number;
+    console.debug("actualizo cantidad: " + cantidad);
+    if( cantidad == 0 ){
+       return this.eliminarItemFactura(idProducto);
+
+    }
+
+    this.factura.items = this.factura.items.map( (item: ItemFactura) => {
+      if(idProducto === item.producto.id){
+        item.cantidad = cantidad;
+      }
+      return item;
+    });
+
+
+
+  }
+
+  isExisteItem( idProducto: number): boolean {
+    let existe: boolean = false;
+    this.factura.items.forEach( ( item: ItemFactura ) => {
+      if( idProducto === item.producto.id ){
+        existe = true;
+        
+      }
+    });
+    return existe;
+  }
+
+  incrementaCantidad( idProducto: number ): void {    
+
+    this.factura.items = this.factura.items.map( (item: ItemFactura) => {
+      if(idProducto === item.producto.id){
+        ++item.cantidad;
+      }
+      return item;
+    });
+    
+  }
+
+  eliminarItemFactura(idProducto: number): void {
+    this.factura.items = this.factura.items.filter( (item: ItemFactura) => 
+      idProducto !== item.producto.id
+    );
 
   }
 
