@@ -9,6 +9,7 @@ import { FacturaService } from './services/factura.service';
 import { Producto } from './models/producto';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { ItemFactura } from './models/item-factura';
+import Sw2 from 'sweetalert2';
 
 @Component({
   selector: 'app-facturas',
@@ -132,6 +133,17 @@ export class FacturasComponent implements OnInit {
     this.factura.items = this.factura.items.filter( (item: ItemFactura) => 
       idProducto !== item.producto.id
     );
+
+  }
+
+  create(): void{
+    this.facturaService.create(this.factura).subscribe( factura => {
+      Sw2.fire({
+        title: this.titulo,
+        text: `Factura: ${factura.descripcion} creada con exito`,
+        icon: 'success'
+      });
+    });
 
   }
 
