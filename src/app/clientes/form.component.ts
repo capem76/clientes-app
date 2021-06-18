@@ -111,7 +111,7 @@ export class FormComponent implements OnInit, OnDestroy {
 
   updateCliente(): void {
     console.debug(this.cliente);
-    
+    this.cliente.facturas = null;
     this.clienteService.updateCliente( this.cliente )
       .subscribe( cliente => {
         this.router.navigate(['/clientes']);

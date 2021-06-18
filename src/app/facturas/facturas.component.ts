@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClienteService } from '../clientes/cliente.service';
 import { Factura } from './models/factura';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map, flatMap, mergeMap } from 'rxjs/operators';
@@ -26,7 +26,8 @@ export class FacturasComponent implements OnInit {
   constructor( 
     private clienteService: ClienteService,
     private activatedRoute: ActivatedRoute,
-    private facturaService: FacturaService
+    private facturaService: FacturaService,
+    private router: Router
     
   ) { }
 
@@ -143,6 +144,7 @@ export class FacturasComponent implements OnInit {
         text: `Factura: ${factura.descripcion} creada con exito`,
         icon: 'success'
       });
+      this.router.navigate(['/clientes']);
     });
 
   }

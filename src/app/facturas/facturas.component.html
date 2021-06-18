@@ -9,7 +9,7 @@
             </a>
         </h4>
 
-        <form>
+        <form #facturaform="ngForm">
             <div class="form-group row" *ngIf="factura.cliente">
                 <label for="cliente" class="col-sm-2 col-form-label">Cliente</label>
                 <div class="col-sm-6">
@@ -20,7 +20,10 @@
             <div class="form-group row">
                 <label for="descripcion" class="col-sm-2 col-form-label">Descripcion</label>
                 <div class="col-sm-6">
-                    <input type="text" name="descripcion" [(ngModel)]="factura.descripcion" class="form-control">
+                    <input type="text" name="descripcion" [(ngModel)]="factura.descripcion" class="form-control" required #descripcion="ngModel">
+                    <div class="alert alert-danger" *ngIf="descripcion.invalid && descripcion.touched">
+                        La descripcion es requerida.
+                    </div>
                 </div>
             </div>
 
@@ -85,7 +88,8 @@
 
             <div class="form-group row">
                 <div class="col-sm-6">
-                    <input (click)="create()" type="submit" value="Crear factura" class="btn btn-secondary">
+                    <input (click)="create()" type="submit" value="Crear factura" class="btn btn-secondary" 
+                        [disabled]="facturaform.form.invalid || factura.items.length == 0">
                 </div>
             </div>
 

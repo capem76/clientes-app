@@ -18,19 +18,19 @@
         <table class="table table-bordered table-striped" *ngIf="clientes?.length > 0">
             <thead>
                 <tr>
-                    <th>#</th>
+                    <th *ngIf="isHasRole('ROLE_USER')">#</th>
                     <th>Nombre</th>
                     <th>Apellido</th>
                     <th>Fecha Creacion</th>                    
                     <th>Email</th>
-                    <th>Crear Factura</th>
+                    <th *ngIf="isHasRole('ROLE_ADMIN')">Crear Factura</th>
                     <th *ngIf="isHasRole('ROLE_ADMIN')">Editar</th>
                     <th *ngIf="isHasRole('ROLE_ADMIN')">Eliminar</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let cliente of clientes">
-                    <td>
+                    <td *ngIf="isHasRole('ROLE_USER')">
                         <img (click)="abrirModal( cliente )"  
                             *ngIf="cliente?.foto" 
                             [src]="uriFotoCliente.concat(cliente.foto)" 
@@ -49,7 +49,7 @@
                     <td>{{ cliente.apellido | uppercase }}</td>
                     <td>{{ cliente.createAt |date: "EEEE dd, MM YYYY" }}</td>                    
                     <td>{{ cliente.email }}</td>
-                    <td>
+                    <td *ngIf="isHasRole('ROLE_ADMIN')">
                         <button type="button" [routerLink]="['/facturas/form', cliente.id]" class="btn btn-primary btn-sm">
                             Crear Factrura
                             <i class="fas fa-plus-circle"></i>
