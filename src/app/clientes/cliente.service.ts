@@ -11,7 +11,7 @@ import { PageCliente } from '../model/interfaces/page-cliente';
 import { Cliente } from './cliente';
 import { Region } from './region';
 
-
+import { URL_BACKEND } from "../config/config";
 
 
 
@@ -20,8 +20,8 @@ import { Region } from './region';
 })
 export class ClienteService {
 
-  private _urlEndPoint: string = 'http://localhost:8080/api/clientes';   
-  private _uriNoFoto: string = "http://localhost:8080/images/no-user-3.png";
+  private _urlEndPoint: string = URL_BACKEND + '/api/clientes';   
+  private _uriNoFoto: string = URL_BACKEND + '/images/no-user-3.png';
   
   constructor( private http: HttpClient, private router: Router ) { }
 

@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Usuario } from './usuario';
 import { LoginResponse } from './login-response.interface';
 import { PayloadObj } from './payload-obj.interface';
+import { URL_BACKEND } from "../config/config";
 
 @Injectable({
   providedIn: 'root'
@@ -45,7 +46,7 @@ export class AuthService {
   
 
   login( usuario: Usuario ):Observable<LoginResponse>{
-    const urlEndpoint = 'http://localhost:8080/oauth/token';
+    const urlEndpoint = URL_BACKEND + '/oauth/token';
     // fnc() para encriptar en base 64
     const credenciales = btoa('angularapp' + ':' + '12345');
     const httpHeaders = new HttpHeaders(

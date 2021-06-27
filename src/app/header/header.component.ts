@@ -14,7 +14,7 @@ export class HeaderComponent implements OnInit {
 
   title: string = "Clientes App"
 
-  constructor( private authService: AuthService , private router: Router) { }
+  constructor( public authService: AuthService , private router: Router) { }
 
   ngOnInit(): void {
 
