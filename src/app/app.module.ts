@@ -9,6 +9,7 @@ import { ClientesComponent } from './clientes/clientes.component';
 import { FormComponent } from './clientes/form.component';
 import { PaginatorComponent } from './paginator/paginator.component';
 import { NotfoundComponent } from './notfound/notfound.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 import { ClienteService } from './clientes/cliente.service';
 import { AppRoutingModule } from './app-routing.module';
@@ -72,7 +73,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     ClienteService,
     {provide: LOCALE_ID, useValue: 'es' },
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: LocationStrategy, useClass: HashLocationStrategy }
     
   ],
   bootstrap: [AppComponent]

@@ -1,1 +1,1 @@
-export const URL_BACKEND = 'https://35.180.52.60/spring-boot-apirest'
+export const URL_BACKEND = 'http://35.180.52.60/spring-boot-apirest'
